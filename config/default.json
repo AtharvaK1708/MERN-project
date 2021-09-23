@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://atharva123:atharva123@devconnector.kva1c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwt_secret": "kastejasaiunasjkasa"
+  "jwt_secret": "kastejasaiunasjkasa",
+  "github_client_id": "dcfdfd56abdddda1a041",
+  "github_secret": "7690b86d378a8d6ed259527f9dfac59bafe9d71b"
 }
