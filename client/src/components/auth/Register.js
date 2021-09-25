@@ -23,7 +23,7 @@ const Register = (props) => {
       // console.log('Password do not match');
       // props.setAlert('Passwords do not match', 'danger');
       dispatch(setAlert('password do not match...', 'danger'));
-      setTimeout(() => dispatch(removeAlert()), 3000);
+      setTimeout(() => dispatch(removeAlert()), 6000);
     } else {
       console.log(formData);
     }
