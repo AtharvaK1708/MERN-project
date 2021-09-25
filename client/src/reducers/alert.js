@@ -1,4 +1,5 @@
 import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
+import Alert from '../components/layouts/Alert';
 
 const initialState = [];
 
