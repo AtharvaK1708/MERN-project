@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
 
 const Register = (props) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,7 +21,8 @@ const Register = (props) => {
     e.preventDefault();
     if (password !== password2) {
       // console.log('Password do not match');
-      props.setAlert('Passwords do not match', 'danger');
+      // props.setAlert('Passwords do not match', 'danger');
+      dispatch(setAlert('password do not match...', 'danger'));
     } else {
       console.log(formData);
     }
