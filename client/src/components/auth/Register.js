@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { setAlert } from '../../actions/alert';
+import { setAlert, removeAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
 
 const Register = (props) => {
@@ -23,6 +23,7 @@ const Register = (props) => {
       // console.log('Password do not match');
       // props.setAlert('Passwords do not match', 'danger');
       dispatch(setAlert('password do not match...', 'danger'));
+      setTimeout(() => dispatch(removeAlert()), 3000);
     } else {
       console.log(formData);
     }
