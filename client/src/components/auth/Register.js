@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { setAlert, removeAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
@@ -33,6 +33,10 @@ const Register = ({ setAlert, register }) => {
   };
 
   const { name, email, password, password2 } = formData;
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard"></Redirect>;
+  }
 
   return (
     <Fragment>
@@ -96,6 +100,12 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = (state) => ({
+  login: PropTypes.func.isRequired,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
