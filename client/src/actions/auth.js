@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  CLEAR_PROFILE,
 } from './types';
 import { removeAlert, setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -82,8 +83,6 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    dispatch(setAlert('Login Successfully', 'success'));
-    setTimeout(() => dispatch(removeAlert()), 4000);
     dispatch(loadUser());
   } catch (err) {
     // console.log(err.message);
@@ -103,4 +102,5 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
+  dispatch({ type: CLEAR_PROFILE });
 };
