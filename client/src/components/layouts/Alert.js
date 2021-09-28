@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Alert = () => {
   const alerts = useSelector((state) => state.alert);

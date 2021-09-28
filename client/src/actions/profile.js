@@ -2,6 +2,8 @@ import axios from 'axios';
 import { setAlert, removeAlert } from './alert';
 import {
   GET_PROFILE,
+  GET_PROFILES,
+  GET_REPOS,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   DELETE_ACCOUNT,
@@ -32,6 +34,81 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
+// ! Get all profiles
+
+export const getProfiles = () => async (dispatch) => {
+  // dispatch({ type: CLEAR_PROFILE });
+  try {
+    // const config = {
+    //   headers: {
+    //     'x-auth-token': localStorage.getItem('token'),
+    //   },
+    // };
+    const res = await axios.get('/api/profile');
+    // console.log(res.data);
+
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// ! Get profile by ID
+
+export const getProfileById = (user_id) => async (dispatch) => {
+  // dispatch({ type: CLEAR_PROFILE });
+  try {
+    // const config = {
+    //   headers: {
+    //     'x-auth-token': localStorage.getItem('token'),
+    //   },
+    // };
+    const res = await axios.get(`/api/profile/user/${user_id}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// ! Get github repos
+
+export const getGithubRepos = (username) => async (dispatch) => {
+  // dispatch({ type: CLEAR_PROFILE });
+  try {
+    // const config = {
+    //   headers: {
+    //     'x-auth-token': localStorage.getItem('token'),
+    //   },
+    // };
+    const res = await axios.get(`/api/profile/github/${username}`);
+
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 // ! Create or update profile
 export const createProfile =
   (formData, history, edit = false) =>
@@ -174,10 +251,10 @@ export const deleteEducation = (edu_id) => async (dispatch) => {
 };
 
 // ! Delete account and profile
-export const deleteAccount = (edu_id) => async (dispatch) => {
+export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? This CANNOT be undone!!')) {
     try {
-      const res = await axios.delete('/api/profile');
+      await axios.delete('/api/profile');
 
       dispatch({
         type: CLEAR_PROFILE,
